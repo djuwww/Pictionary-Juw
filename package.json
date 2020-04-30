@@ -1,0 +1,23 @@
+{
+  "name": "pictionary-juw",
+  "version": "0.0.1",
+  "description": "WebSocket project for DWM",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djuwww/Pictionary-Juw.git"
+  },
+  "author": "Juwan Dutkiewicz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djuwww/Pictionary-Juw/issues"
+  },
+  "homepage": "https://github.com/djuwww/Pictionary-Juw#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
