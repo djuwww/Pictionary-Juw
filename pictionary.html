@@ -31,6 +31,7 @@
 </head>
 <body>
     <h1>Salut <span class="nom"></span>, comment tu vas ?</h1>
+    <p class="ton-mot"></p>
     <form>
         <label>
             Stroke weight: 
@@ -56,11 +57,14 @@
 
         const weightInput = document.querySelector('.js-weight');
         const colorInput = document.querySelector('.js-color');
+        let isActive = false;
+
         function setup () {
             createCanvas(500,500);
         }
 
         function mouseDragged () {
+            if (!isActive) return;
             strokeWeight(weightInput.value);
             stroke(colorInput.value);
             line(mouseX, mouseY, pmouseX, pmouseY);
@@ -80,16 +84,31 @@
             stroke(data.color);
             line(data.mouseX, data.mouseY,data.pmouseX, data.pmouseY);
         })
-
         const usersList = document.querySelector('.js-users');
         socket.on('users', data => {
             usersList.innerHTML = '';
-            data.forEach(username => {
+            data.forEach(user => {
                 const li = document.createElement('li');
-                li.innerHTML = username;
+                if(user.isActive){
+                    li.innerHTML = `<b>${user.username}</b>`;
+                }else {
+                    li.innerHTML = user.username;
+                }
                 usersList.appendChild(li);
+
+                if(username === user.username) {
+                    isActive = user.isActive;
+                }
             })
         });
+
+        socket.on('clear', () => {
+            clear();
+        })
+
+        socket.on('word', word => {
+            alert(word);
+        })
     </script>
 </body>
 </html>
