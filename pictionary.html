@@ -30,8 +30,7 @@
     </style>
 </head>
 <body>
-    <h1>Salut <span class="nom"></span>, comment tu vas ?</h1>
-    <p class="ton-mot"></p>
+    <h1>Salut <span class="nom"></span>.</h1>
     <form>
         <label>
             Stroke weight: 
@@ -50,7 +49,7 @@
     <script>
         const socket = io();
 
-        const username = prompt('Tell me your name');
+        const username = prompt('C\'est quoi ton petit nom ?');
         const nom = document.querySelector('.nom');
         nom.innerHTML = username;
         socket.emit('username', username);

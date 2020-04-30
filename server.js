@@ -15,7 +15,7 @@ const io = socketIO(server);
 let users = [];
 let currentPlayer = null;
 let timeout = null;
-const words = ['Apple', 'Pear', 'Cherry', 'Orange']
+const words = ['Pomme', 'Arbre', 'Voiture', 'Palmier', 'Soleil', 'Crayon', 'Bic','Cerise'];
 
 io.on('connection', (socket) => {
     console.log('A new user joined the game');
