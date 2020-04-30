@@ -8,10 +8,29 @@
         canvas {
             box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
+        form {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            background: white;
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
-    <h1>Hello world</h1>
+    <h1>Salut <span class="nom"></span>, comment tu vas ?</h1>
+    <form>
+        <label>
+            Stroke weight: 
+            <input type="range" min="1" max="50" value="4" class="js-weight">
+        </label>
+        <label>
+            Color: 
+            <input type="color" value='#00000' class="js-color">
+        </label>
+        
+    </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -19,14 +38,19 @@
         const socket = io();
 
         const username = prompt('Tell me your name');
-
+        const nom = document.querySelector('.nom');
+        nom.innerHTML = username;
         socket.emit('username', username);
 
+        const weightInput = document.querySelector('.js-weight');
+        const colorInput = document.querySelector('.js-color');
         function setup () {
             createCanvas(500,500);
         }
 
         function mouseDragged () {
+            strokeWeight(weightInput.value);
+            stroke(colorInput.value);
             line(mouseX, mouseY, pmouseX, pmouseY);
 
             socket.emit('line', {
@@ -34,10 +58,14 @@
                 mouseY: mouseY,
                 pmouseX: pmouseX,
                 pmouseY: pmouseY,
+                weight: weightInput.value,
+                color: colorInput.value
             })
         }
 
         socket.on('line', data => {
+            strokeWeight(data.weight);
+            stroke(data.color);
             line(data.mouseX, data.mouseY,data.pmouseX, data.pmouseY);
         })
     </script>
